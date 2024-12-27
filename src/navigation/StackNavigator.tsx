@@ -3,12 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 // Import Screens
-import SplashScreen from './src/screens/SplashScreen';
-import UserTypeScreen from './src/screens/UserTypeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import OTPScreen from './src/screens/OTPScreen';
+import SplashScreen from '../screens/SplashScreen';
+import UserTypeScreen from '../screens/UserTypeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import OTPScreen from '../screens/OTPScreen';
+import { RootStackParamList } from '../types/types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>(); // Apply the type
 
 const StackNavigator: React.FC = () => {
   return (
