@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 const UserTypeScreen = ({ navigation }: any) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -12,9 +12,23 @@ const UserTypeScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.curve} />
-      <Text style={styles.logo}>Jaha</Text>
+      {/* Curve Image */}
+      <View style={styles.curveContainer}>
+        <Image
+          source={require('../../assets/curve.png')} // Replace with your curve image path
+          style={styles.curveImage}
+        />
+        {/* Logo Image */}
+        <Image
+          source={require('../../assets/logo.png')} // Replace with your logo image path
+          style={styles.logoImage}
+        />
+      </View>
+
+      {/* Question */}
       <Text style={styles.question}>What are you joining as?</Text>
+
+      {/* Options */}
       <View style={styles.options}>
         <TouchableOpacity
           style={[
@@ -23,7 +37,14 @@ const UserTypeScreen = ({ navigation }: any) => {
           ]}
           onPress={() => setSelectedType('Agent')}
         >
-          <Text style={styles.optionText}>Agent</Text>
+          <Text
+            style={[
+              styles.optionText,
+              selectedType === 'Agent' && styles.selectedOptionText,
+            ]}
+          >
+            Agent
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -32,9 +53,18 @@ const UserTypeScreen = ({ navigation }: any) => {
           ]}
           onPress={() => setSelectedType('Customer')}
         >
-          <Text style={styles.optionText}>Customer</Text>
+          <Text
+            style={[
+              styles.optionText,
+              selectedType === 'Customer' && styles.selectedOptionText,
+            ]}
+          >
+            Customer
+          </Text>
         </TouchableOpacity>
       </View>
+
+      {/* Continue Button */}
       <TouchableOpacity
         style={[styles.continueButton, !selectedType && styles.disabledButton]}
         disabled={!selectedType}
@@ -49,47 +79,61 @@ const UserTypeScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#fff',
+    paddingHorizontal: 20,
   },
-  curve: {
-    height: 100,
-    backgroundColor: '#f0f0f0',
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
-    marginBottom: 20,
+  curveContainer: {
+    height: 200,
+    position: 'relative',
   },
-  logo: {
-    fontSize: 24,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginBottom: 16,
+  curveImage: {
+    width: '120%',
+    height: '145%',
+    resizeMode: 'cover',
+  },
+  logoImage: {
+    position: 'absolute',
+    bottom: -25,
+    alignSelf: 'center',
+    width: 70, // Adjust size based on design
+    height: 70, // Adjust size based on design
+    resizeMode: 'contain',
   },
   question: {
+    marginTop: 40,
     textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#333',
   },
   options: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 30,
+    marginVertical: 30,
   },
   option: {
-    padding: 12,
+    padding: 14,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
+    width: '40%',
+    alignItems: 'center',
   },
   selectedOption: {
     backgroundColor: '#007BFF',
+    borderColor: '#007BFF',
   },
   optionText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  selectedOptionText: {
     color: '#fff',
+    fontWeight: 'bold',
   },
   continueButton: {
     backgroundColor: '#007BFF',
-    padding: 14,
+    paddingVertical: 12,
     borderRadius: 8,
   },
   disabledButton: {
@@ -98,6 +142,7 @@ const styles = StyleSheet.create({
   continueText: {
     textAlign: 'center',
     color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
