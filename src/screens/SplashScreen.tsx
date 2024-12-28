@@ -12,15 +12,19 @@ const SplashScreen = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('UserTypeScreen');
-    }, 2000); // Navigate after 2 seconds
+    }, 20000000); // Navigate after 2 seconds
 
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/logo.png')} style={styles.logo} />
-    </View>
+     <Image 
+     source={require('../../assets/logo.png')} // Replace with your actual logo path
+     style={styles.logo}
+     resizeMode="contain" // Ensures the logo maintains its aspect ratio
+   />
+   </View>
   );
 };
 
@@ -29,11 +33,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: '30%', // Makes the logo responsive
+    height: undefined, // Allows height to adjust based on aspect ratio
+    aspectRatio: 1, // Ensures the logo is square (adjust as per your logo's aspect ratio)
   },
 });
 
