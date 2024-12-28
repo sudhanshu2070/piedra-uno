@@ -107,9 +107,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   options: {
+    marginTop: 313,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: 30,
+    marginVertical: 0,
   },
   option: {
     padding: 14,
