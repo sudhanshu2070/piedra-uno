@@ -14,21 +14,6 @@ const UserTypeScreen = ({ navigation }: any) => {
     <View style={styles.container}>
       {/* Curve Image */}
       <View style={styles.curveContainer}>
-      {/* <View style={styles.curvedLine} /> */}
-      <View
-  style={{
-    width: 100,
-    height: 100,
-    borderTopWidth: 10,
-    borderRightWidth: 0.1,
-    borderLeftWidth: 0.1,
-    borderRadius: 122,
-    borderTopColor: 'black',
-    borderRightColor: 'blue',
-    borderLeftColor: 'blue',
-  }}
-/>
-
         {/* <Image
           source={require('../../assets/curve.png')} // Replace with your curve image path
           style={styles.curveImage}
@@ -98,6 +83,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   curveContainer: {
+    flex:1,
     height: 200,
     position: 'relative',
   },
