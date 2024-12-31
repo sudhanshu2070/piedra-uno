@@ -11,67 +11,73 @@ const UserTypeScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Curve Image */}
-      <View style={styles.curveContainer}>
-        {/* <Image
-          source={require('../../assets/curve.png')} // Replace with your curve image path
-          style={styles.curveImage}
-        /> */}
-        {/* Logo Image */}
-        <Image
-          source={require('../../assets/logo.png')} // Replace with your logo image path
-          style={styles.logoImage}
-        />
-      </View>
+  //   <View style={styles.container}>
+  //     {/* Curve Image */}
+  //     <View style={styles.curveContainer}>
+  //       {/* <Image
+  //         source={require('../../assets/curve.png')} // Replace with your curve image path
+  //         style={styles.curveImage}
+  //       /> */}
+  //       {/* Logo Image */}
+  //       <Image
+  //         source={require('../../assets/logo.png')} // Replace with your logo image path
+  //         style={styles.logoImage}
+  //       />
+  //     </View>
 
-      {/* Question */}
-      <Text style={styles.question}>What are you joining as?</Text>
+  //     {/* Question */}
+  //     <Text style={styles.question}>What are you joining as?</Text>
 
-      {/* Options */}
-      <View style={styles.options}>
-        <TouchableOpacity
-          style={[
-            styles.option,
-            selectedType === 'Agent' && styles.selectedOption,
-          ]}
-          onPress={() => setSelectedType('Agent')}
-        >
-          <Text
-            style={[
-              styles.optionText,
-              selectedType === 'Agent' && styles.selectedOptionText,
-            ]}
-          >
-            Agent
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.option,
-            selectedType === 'Customer' && styles.selectedOption,
-          ]}
-          onPress={() => setSelectedType('Customer')}
-        >
-          <Text
-            style={[
-              styles.optionText,
-              selectedType === 'Customer' && styles.selectedOptionText,
-            ]}
-          >
-            Customer
-          </Text>
-        </TouchableOpacity>
-      </View>
+  //     {/* Options */}
+  //     <View style={styles.options}>
+  //       <TouchableOpacity
+  //         style={[
+  //           styles.option,
+  //           selectedType === 'Agent' && styles.selectedOption,
+  //         ]}
+  //         onPress={() => setSelectedType('Agent')}
+  //       >
+  //         <Text
+  //           style={[
+  //             styles.optionText,
+  //             selectedType === 'Agent' && styles.selectedOptionText,
+  //           ]}
+  //         >
+  //           Agent
+  //         </Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={[
+  //           styles.option,
+  //           selectedType === 'Customer' && styles.selectedOption,
+  //         ]}
+  //         onPress={() => setSelectedType('Customer')}
+  //       >
+  //         <Text
+  //           style={[
+  //             styles.optionText,
+  //             selectedType === 'Customer' && styles.selectedOptionText,
+  //           ]}
+  //         >
+  //           Customer
+  //         </Text>
+  //       </TouchableOpacity>
+  //     </View>
 
-      {/* Continue Button */}
-      <TouchableOpacity
-        style={[styles.continueButton, !selectedType && styles.disabledButton]}
-        disabled={!selectedType}
-        onPress={handleContinue}
-      >
-        <Text style={styles.continueText}>Continue</Text>
-      </TouchableOpacity>
+  //     {/* Continue Button */}
+  //     <TouchableOpacity
+  //       style={[styles.continueButton, !selectedType && styles.disabledButton]}
+  //       disabled={!selectedType}
+  //       onPress={handleContinue}
+  //     >
+  //       <Text style={styles.continueText}>Continue</Text>
+  //     </TouchableOpacity>
+  //   </View>
+
+    <View style=  {styles.container}>
+      <View style= {styles.layerUpper}></View>
+      <View style= {styles.layerBottom}></View>
+
     </View>
   );
 };
@@ -80,12 +86,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+  },
+  layerUpper:{
+    flex:0.45,
+    backgroundColor:'f0f0f0',
+    borderBottomLeftRadius: 150, // Curves the bottom-left corner
+    borderBottomRightRadius: 50, // Curves the bottom-right corner
+  },
+  layerBottom:{
+    flex:0.55,
+    backgroundColor:'#d0d0d0',
+    marginBottom: -50, // Pull the bottom layer up to overlap slightly
+    borderTopLeftRadius: 150, // Curves the top-left corner
+    // borderTopRightRadius: 150, // Curves the top-right corner
   },
   curveContainer: {
     flex:1,
-    height: 200,
-    position: 'relative',
+    backgroundColor:'white'
   },
   curveImage: {
     width: '120%',
