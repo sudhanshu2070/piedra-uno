@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 
 const UserTypeScreen = ({ navigation }: any) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -82,23 +82,24 @@ const UserTypeScreen = ({ navigation }: any) => {
   );
 };
 
+const { width } = Dimensions.get('window'); // Get device width for perfect semi-circle
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  layerUpper:{
-    flex:0.45,
-    backgroundColor:'f0f0f0',
-    borderBottomLeftRadius: 150, // Curves the bottom-left corner
-    borderBottomRightRadius: 50, // Curves the bottom-right corner
+  layerUpper: {
+    width: width, // Full screen width
+    height: width / 2, // Half the width to make a semi-circle
+    backgroundColor: '#f0f0f0',
+    borderBottomLeftRadius: width / 2, // Semi-circle
+    borderBottomRightRadius: width / 2, // Semi-circle
+    overflow: 'hidden',
   },
-  layerBottom:{
-    flex:0.55,
-    backgroundColor:'#d0d0d0',
-    marginBottom: -50, // Pull the bottom layer up to overlap slightly
-    borderTopLeftRadius: 150, // Curves the top-left corner
-    // borderTopRightRadius: 150, // Curves the top-right corner
+  layerBottom: {
+    flex: 1,
+    backgroundColor: '#d0d0d0',
   },
   curveContainer: {
     flex:1,
