@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+
 
 const UserTypeScreen = ({ navigation }: any) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -75,14 +77,15 @@ const UserTypeScreen = ({ navigation }: any) => {
   //   </View>
 
     <View style=  {styles.container}>
-      <View style= {styles.layerUpper}></View>
+      <View style= {styles.layerUpper}>
+      <View style={styles.curve} />
+      </View>
+
       <View style= {styles.layerBottom}></View>
 
     </View>
   );
 };
-
-const { width } = Dimensions.get('window'); // Get device width for perfect semi-circle
 
 const styles = StyleSheet.create({
   container: {
@@ -90,16 +93,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   layerUpper: {
-    width: width, // Full screen width
-    height: width / 2, // Half the width to make a semi-circle
+    flex:0.25,
+    // width: width, // Full screen width
+    // height: width / 2.5, // Half the width to make a semi-circle
     backgroundColor: '#f0f0f0',
-    borderBottomLeftRadius: width / 2, // Semi-circle
-    borderBottomRightRadius: width / 2, // Semi-circle
-    overflow: 'hidden',
+    // borderBottomLeftRadius: width / 2.5, // Semi-circle
+    // borderBottomRightRadius: width / 2.5, // Semi-circle
+    // overflow: 'hidden',
   },
   layerBottom: {
-    flex: 1,
+    flex: 0.75,
     backgroundColor: '#d0d0d0',
+  },
+  curve: {
+    height: 10,
+    width: '100%',
+    backgroundColor: '#d0d0d0',
+    borderBottomLeftRadius: 200,
+    borderBottomRightRadius: 200,
+    position: 'absolute',
+    bottom: 10, // Pushes the curve into the lower layer
   },
   curveContainer: {
     flex:1,
