@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
   wave: {
     position: 'absolute',
     top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   logoContainer: {
     position: 'absolute',
