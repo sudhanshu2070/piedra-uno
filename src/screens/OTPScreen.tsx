@@ -10,7 +10,7 @@ const OTPScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.message}>
-        Jaha has sent an OTP to your mobile number ending with 9876
+        an OTP to your mobile number ending with 9876
       </Text>
       <View style={styles.otpContainer}>
         {otp.map((_, index) => (

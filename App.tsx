@@ -1,8 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
-// Import Screens
 import SplashScreen from './src/screens/SplashScreen';
 import UserTypeScreen from './src/screens/UserTypeScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -16,7 +14,7 @@ const StackNavigator: React.FC = () => {
       <Stack.Navigator
         initialRouteName="SplashScreen"
         screenOptions={{
-          headerShown: false, // Hides the header for all screens
+          headerShown: false, // Hiding the header for all screens
         }}
       >
         <Stack.Screen name="SplashScreen" component={SplashScreen} />

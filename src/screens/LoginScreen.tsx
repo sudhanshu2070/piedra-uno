@@ -32,7 +32,7 @@ const LoginScreen = ({ navigation }: any) => {
         <Text style={styles.continueText}>Continue</Text>
       </TouchableOpacity>
       <Text style={styles.footerText}>
-        By continuing, you agree to Jaha's terms of use and privacy policy.
+        By continuing, you agree to the terms of use and privacy policy.
       </Text>
     </View>
   );
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     curve: {
       width: '100%',
       height: 200,
-      backgroundColor: '#007BFF', // Assuming the color of the curve
+      backgroundColor: '#007BFF', 
       borderBottomLeftRadius: 100,
       borderBottomRightRadius: 100,
       position: 'absolute',

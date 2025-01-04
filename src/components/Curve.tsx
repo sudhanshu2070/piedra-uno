@@ -8,7 +8,7 @@ const Curve: React.FC = () => {
 const styles = StyleSheet.create({
   curve: {
     height: 100,
-    backgroundColor: '#f0f0f0', // Light gray
+    backgroundColor: '#f0f0f0', // Light gray color
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     position: 'absolute',

@@ -9,7 +9,7 @@ const App = () => {
       <View style={styles.topSection}>
         <Svg height="100%" width="100%" viewBox="0 0 1440 320" style={styles.wave}>
           <Path
-            fill="#CCFFCC" // Light green background
+            fill="#CCFFCC" 
             d="M0,96L48,101.3C96,107,192,117,288,128C384,139,480,149,576,144C672,139,768,117,864,112C960,107,1056,117,1152,128C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           />
         </Svg>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#FF9900', // Orange color for the text
+    color: '#FF9900', 
   },
   middleSection: {
     flex: 0.4,

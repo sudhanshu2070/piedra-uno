@@ -1,15 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
-// Import Screens
 import SplashScreen from '../screens/SplashScreen';
 import UserTypeScreen from '../screens/UserTypeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import OTPScreen from '../screens/OTPScreen';
 import { RootStackParamList } from '../types/types';
 
-const Stack = createStackNavigator<RootStackParamList>(); // Apply the type
+const Stack = createStackNavigator<RootStackParamList>(); // Applying the type here
 
 const StackNavigator: React.FC = () => {
   return (
@@ -17,7 +15,7 @@ const StackNavigator: React.FC = () => {
       <Stack.Navigator
         initialRouteName="SplashScreen"
         screenOptions={{
-          headerShown: false, // Hides the header for all screens
+          headerShown: false, // Hiding the header for all screens
         }}
       >
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
