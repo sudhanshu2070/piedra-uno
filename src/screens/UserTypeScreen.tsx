@@ -18,7 +18,7 @@ const App = () => {
         </View>
       </View>
 
-      {/* Middle Section */}
+      {/* Middle Section for type of user*/}
       <View style={styles.middleSection}>
         <Text style={styles.question}>What are you joining as?</Text>
         <View style={styles.buttonsContainer}>
