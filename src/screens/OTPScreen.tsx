@@ -7,7 +7,7 @@ const OTPScreen = () => {
     console.log('Verify OTP:', otp.join(''));
     Alert.alert(
       "Verified Succesfully",
-      "How are you!",
+      "How are you!?",
       [
         {
           text: "Cancel",
