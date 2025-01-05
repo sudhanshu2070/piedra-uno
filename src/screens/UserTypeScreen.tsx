@@ -34,10 +34,11 @@ const UserTypeScreen = () => {
           />
         </Svg>
         <Image 
-            source={require('../../assets/logo.png')} 
+            source={require('../../assets/Bharatgrow_symbol.png')} 
             style={styles.logo}
             resizeMode="contain" 
         />
+         <Text style={styles.logoText}>Bharat Grow</Text>
       </View>
 
       {/* Middle Section for type of user */}
@@ -101,9 +102,9 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   logo: {
-    width: '30%', 
+    width: '15%', 
     height: undefined, 
-    aspectRatio: 0.35,
+    aspectRatio: 0.45,
     top:65,
   },
   logoContainer: {
@@ -112,20 +113,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 17,
     color: '#FF9900',
+    top:35,
+    left:1,
   },
   middleSection: {
     flex: 0.4,
     justifyContent: 'center',
     alignItems: 'center',
+    bottom:60
   },
   question: {
     fontSize: 18,
     fontWeight: '400',
-    color: '#333',
-    marginBottom: 20,
+    color: '#3D495B',
+    marginBottom: 40,
+    fontFamily:'Proxima Nova', //gotta add the font manually and import 
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 10,
     width:'48%',
-    height:70,
+    height:95,
     justifyContent: 'center', 
     alignItems: 'center',  
   },
@@ -166,10 +170,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 15,
     paddingHorizontal: 80,
-    width:420,
+    width:450,
+    height:60,
     justifyContent: 'center', 
     alignItems: 'center',  
-    bottom:180
+    bottom:200
   },
   continueButtonText: {
     fontSize: 16,
