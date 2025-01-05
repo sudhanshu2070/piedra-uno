@@ -123,14 +123,15 @@ const styles = StyleSheet.create({
   },
   question: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '400',
     color: '#333',
     marginBottom: 20,
   },
   buttonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     width: '80%',
+    alignItems: 'center',
   },
   button: {
     backgroundColor: '#ffffff',
@@ -140,6 +141,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: 10,
+    width:'48%',
+    height:70,
+    justifyContent: 'center', 
+    alignItems: 'center',  
   },
   selectedButton: {
     borderColor: '#FF9900', 
@@ -148,7 +153,8 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: '#333',
-    fontWeight: '500',
+    fontWeight: '400',
+    textAlign:'center', 
   },
   bottomSection: {
     flex: 0.3,
