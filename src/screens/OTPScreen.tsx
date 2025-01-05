@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 const OTPScreen = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const handleVerify = () => {
     console.log('Verify OTP:', otp.join(''));
+    Alert.alert(
+      "Verified Succesfully",
+      "How are you!",
+      [
+        {
+          text: "Cancel",
+        },
+        {
+          text: "OK",
+        }
+      ]
+    );
   };
 
   return (

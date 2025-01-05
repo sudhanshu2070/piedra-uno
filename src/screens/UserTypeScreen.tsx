@@ -68,7 +68,7 @@ const UserTypeScreen = () => {
         <TouchableOpacity
           style={[
             styles.continueButton,
-            !selectedRole && styles.disabledButton, 
+            selectedRole ? { backgroundColor: '#F58320' } : styles.disabledButton,
           ]}
           onPress={handleContinue}
           disabled={!selectedRole} 
