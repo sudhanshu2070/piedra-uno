@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,Modal } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
+import CountryPicker, { CountryCode } from 'react-native-country-picker-modal';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
@@ -14,9 +15,10 @@ type Props = {
 
 const LoginScreen: React.FC<Props> = ({ route }) => {
   const { role } = route.params; // Accessing the role  
+  const navigation = useNavigation<LoginScreenNavigationProp>(); 
   const [phoneNumber, setPhoneNumber] = useState('');
-    const navigation = useNavigation<LoginScreenNavigationProp>(); 
-
+  const [countryCode, setCountryCode] = useState<CountryCode>("IN"); // Default country code, India (+91)
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleContinue = () => {
     if (phoneNumber) {
@@ -24,10 +26,21 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
     }
   };
 
+  const handleCountrySelect = (country:any) => {
+    setCountryCode(country.CountryCode);
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.curve} />
-      <Text style={styles.logo}>Company</Text>
+      {/* <Text style={styles.logo}>Company</Text> */}
+      <Image 
+          source={require('../../assets/Bharatgrow_symbol.png')} 
+          style={styles.logo}
+          resizeMode="contain" 
+      />
+      <Text style={styles.logoText}>Bharat Grow</Text>
       <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text>
 
       <View style={styles.lineContainer}>
@@ -38,14 +51,20 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
       <View style={styles.inputContainer}>
       <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
-        <TextInput
-          placeholder="Enter phone number"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="phone-pad"
-          style={styles.input}
-        />
+      <View style={styles.countryInputContainer}>
+          <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.countryCodeButton}>
+            <Text style={styles.countryCodeText}>+91</Text>
+          </TouchableOpacity>
+          <TextInput
+            placeholder="Enter phone number"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            keyboardType="phone-pad"
+            style={styles.input}
+          />
+        </View>
       </View>
+
       <TouchableOpacity
         style={[styles.continueButton, !phoneNumber && styles.disabledButton]}
         disabled={!phoneNumber}
@@ -56,6 +75,17 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       <Text style={styles.footerText}>
         By continuing, you agree to the terms of use and privacy policy.
       </Text>
+
+    {/* Country Code Picker Modal */}
+    <CountryPicker
+        withFilter
+        withFlag
+        withCountryNameButton
+        countryCode='IN'
+        onSelect={handleCountrySelect}
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 };
@@ -80,10 +110,18 @@ const styles = StyleSheet.create({
     right: 0,
   },
   logo: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#007BFF',
-    marginTop: 80,
+    width: '15%', 
+    height: undefined, 
+    aspectRatio: 0.45,
+    // top:1,
+    bottom:90
+  },
+  logoText: {
+    fontSize: 17,
+    color: '#FF9900',
+    // top:35,
+    bottom:120,
+    left:1,
   },
   welcomeText: {
     fontSize: 22,
@@ -96,8 +134,26 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 20,
   },
+   countryInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#007BFF',
+    marginBottom: 10,
+  },
+  countryCodeButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+  },
+  countryCodeText: {
+    fontSize: 16,
+    color: '#007BFF',
+  },
   input: {
     height: 50,
+    width: '80%',
     borderColor: '#007BFF',
     borderWidth: 1,
     borderRadius: 8,
@@ -156,3 +212,4 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+//++4

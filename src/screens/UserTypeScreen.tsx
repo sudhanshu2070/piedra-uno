@@ -107,11 +107,6 @@ const styles = StyleSheet.create({
     aspectRatio: 0.45,
     top:65,
   },
-  logoContainer: {
-    position: 'absolute',
-    top: '40%',
-    alignItems: 'center',
-  },
   logoText: {
     fontSize: 17,
     color: '#FF9900',
