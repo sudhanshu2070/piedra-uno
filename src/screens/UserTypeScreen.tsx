@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity,Image } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native'; 
 import { RootStackParamList } from '../types/types';
@@ -19,8 +19,7 @@ const UserTypeScreen = () => {
   // Handle continue button press
   const handleContinue = () => {
     if (selectedRole) {
-      // navigation.navigate('LoginScreen'); // Navigating to LoginScreen
-      navigation.navigate('LoginScreen', { role: selectedRole }); // Passing role as a parameter
+      navigation.navigate('LoginScreen', { role: selectedRole }); // Passing role to the next screen
     }
   };
 
@@ -34,9 +33,11 @@ const UserTypeScreen = () => {
             d="M0,96L48,101.3C96,107,192,117,288,128C384,139,480,149,576,144C672,139,768,117,864,112C960,107,1056,117,1152,128C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           />
         </Svg>
-        <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>Bharat Grow</Text>
-        </View>
+        <Image 
+            source={require('../../assets/logo.png')} 
+            style={styles.logo}
+            resizeMode="contain" 
+        />
       </View>
 
       {/* Middle Section for type of user */}
@@ -98,6 +99,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  logo: {
+    width: '30%', 
+    height: undefined, 
+    aspectRatio: 0.35,
+    top:65,
   },
   logoContainer: {
     position: 'absolute',
