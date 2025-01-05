@@ -12,7 +12,8 @@ type Props = {
   route: LoginScreenRouteProp;
 };
 
-const LoginScreen = () => {
+const LoginScreen: React.FC<Props> = ({ route }) => {
+  const { role } = route.params; // Accessing the role  
   const [phoneNumber, setPhoneNumber] = useState('');
     const navigation = useNavigation<LoginScreenNavigationProp>(); 
 
@@ -27,7 +28,7 @@ const LoginScreen = () => {
     <View style={styles.container}>
       <View style={styles.curve} />
       <Text style={styles.logo}>Company</Text>
-      <Text style={styles.welcomeText}>Welcome to the Company</Text>
+      <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Enter your mobile number"

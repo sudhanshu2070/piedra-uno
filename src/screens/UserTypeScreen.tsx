@@ -19,7 +19,8 @@ const UserTypeScreen = () => {
   // Handle continue button press
   const handleContinue = () => {
     if (selectedRole) {
-      navigation.navigate('LoginScreen'); // Navigating to LoginScreen
+      // navigation.navigate('LoginScreen'); // Navigating to LoginScreen
+      navigation.navigate('LoginScreen', { role: selectedRole }); // Passing role as a parameter
     }
   };
 
