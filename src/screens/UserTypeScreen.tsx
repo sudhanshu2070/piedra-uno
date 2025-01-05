@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native'; 
+import { RootStackParamList } from '../types/types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const App = () => {
+type UserTypeNavigationProp = StackNavigationProp<RootStackParamList,'UserTypeScreen'>;
+
+const UserTypeScreen = () => {
+  const [selectedRole, setSelectedRole] = useState<string | null>(null); //Tracking selected role
+  const navigation = useNavigation<UserTypeNavigationProp>(); 
+
+  // Handle role selection
+  const handleRoleSelection = (role: string) => {
+    setSelectedRole(role);
+  };
+  
+  // Handle continue button press
+  const handleContinue = () => {
+    if (selectedRole) {
+      navigation.navigate('LoginScreen'); // Navigating to LoginScreen
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Top Wave Section */}
       <View style={styles.topSection}>
         <Svg height="100%" width="100%" viewBox="0 0 1440 320" style={styles.wave}>
           <Path
-            fill="#CCFFCC" 
+            fill="#CCFFCC"
             d="M0,96L48,101.3C96,107,192,117,288,128C384,139,480,149,576,144C672,139,768,117,864,112C960,107,1056,117,1152,128C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           />
         </Svg>
@@ -18,14 +38,26 @@ const App = () => {
         </View>
       </View>
 
-      {/* Middle Section for type of user*/}
+      {/* Middle Section for type of user */}
       <View style={styles.middleSection}>
         <Text style={styles.question}>What are you joining as?</Text>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              selectedRole === 'Agent' && styles.selectedButton, 
+            ]}
+            onPress={() => handleRoleSelection('Agent')}
+          >
             <Text style={styles.buttonText}>Agent</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              selectedRole === 'Customer' && styles.selectedButton, 
+            ]}
+            onPress={() => handleRoleSelection('Customer')}
+          >
             <Text style={styles.buttonText}>Customer</Text>
           </TouchableOpacity>
         </View>
@@ -33,7 +65,14 @@ const App = () => {
 
       {/* Bottom Section */}
       <View style={styles.bottomSection}>
-        <TouchableOpacity style={styles.continueButton}>
+        <TouchableOpacity
+          style={[
+            styles.continueButton,
+            !selectedRole && styles.disabledButton, 
+          ]}
+          onPress={handleContinue}
+          disabled={!selectedRole} 
+        >
           <Text style={styles.continueButtonText}>Continue</Text>
         </TouchableOpacity>
       </View>
@@ -67,7 +106,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#FF9900', 
+    color: '#FF9900',
   },
   middleSection: {
     flex: 0.4,
@@ -94,6 +133,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 10,
   },
+  selectedButton: {
+    borderColor: '#FF9900', 
+    backgroundColor: '#FF9900',
+  },
   buttonText: {
     fontSize: 16,
     color: '#333',
@@ -115,6 +158,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontWeight: 'bold',
   },
+  disabledButton: {
+    backgroundColor: '#ccc', 
+  },
 });
 
-export default App;
+export default UserTypeScreen;
