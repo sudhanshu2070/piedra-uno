@@ -166,11 +166,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 15,
     paddingHorizontal: 80,
+    width:420,
+    justifyContent: 'center', 
+    alignItems: 'center',  
+    bottom:180
   },
   continueButtonText: {
     fontSize: 16,
     color: '#ffffff',
     fontWeight: 'bold',
+    textAlign:'center'
   },
   disabledButton: {
     backgroundColor: '#ccc', 
