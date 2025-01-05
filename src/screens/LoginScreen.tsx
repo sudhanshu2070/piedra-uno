@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
@@ -29,9 +29,17 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       <View style={styles.curve} />
       <Text style={styles.logo}>Company</Text>
       <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text>
+
+      <View style={styles.lineContainer}>
+        <View style={styles.line} />
+        <Text style={styles.loginSignupText}>Login/ Signup</Text>
+        <View style={styles.line} />
+      </View>
+
       <View style={styles.inputContainer}>
+      <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
         <TextInput
-          placeholder="Enter your mobile number"
+          placeholder="Enter phone number"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
   curve: {
     width: '100%',
     height: 250,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#E5FFEF',
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
     position: 'absolute',
@@ -117,7 +125,33 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#7A7A7A',
     marginTop: 20,
-    textAlign: 'center',
+    textAlign: 'left',
+    // left:0,
+    right:30
+  },
+  lineContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  line: {
+    flex: 1,
+    color:'#666C8933',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  loginSignupText: {
+    paddingHorizontal: 10,
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#3D495B',
+  },
+  aadhaarText: {
+    fontSize: 14,
+    fontWeight: '300',
+    color: '#333333',
+    textAlign:'left',
+    bottom:10
   },
 });
 
