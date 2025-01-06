@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,Modal } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
-import CountryPicker, { CountryCode } from 'react-native-country-picker-modal';
+import PhoneInput from 'react-native-phone-number-input';
+import CountryPicker, { CountryCode } from "react-native-country-picker-modal";
+// import CountryPicker, { CountryCode } from 'react-native-country-picker-modal';
+
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
@@ -16,18 +19,29 @@ type Props = {
 const LoginScreen: React.FC<Props> = ({ route }) => {
   const { role } = route.params; // Accessing the role  
   const navigation = useNavigation<LoginScreenNavigationProp>(); 
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState<CountryCode>("IN"); // Default country code, India (+91)
+  // const [phoneNumber, setPhoneNumber] = useState('');
+  // const [countryCode, setCountryCode] = useState<CountryCode>("IN"); // Default country code, India (+91)
+  // const [modalVisible, setModalVisible] = useState(false);
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [formattedValue, setFormattedValue] = useState("");
+  const [valid, setValid] = useState(false);
+  const [countryCode, setCountryCode] = useState<CountryCode>('IN'); // Default to India
   const [modalVisible, setModalVisible] = useState(false);
+  const phoneInput = useRef<PhoneInput>(null);
 
   const handleContinue = () => {
-    if (phoneNumber) {
+    if (valid) {
       navigation.navigate('OTPScreen');
     }
+    else{
+      alert("Please enter a valid phone number.");
+    }
+
   };
 
-  const handleCountrySelect = (country:any) => {
-    setCountryCode(country.CountryCode);
+  const handleCountrySelect = (country: { cca2: CountryCode }) => {
+    setCountryCode(country.cca2); // Correctly set the country code
     setModalVisible(false);
   };
 
@@ -51,23 +65,24 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
       <View style={styles.inputContainer}>
       <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
-      <View style={styles.countryInputContainer}>
-          <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.countryCodeButton}>
-            <Text style={styles.countryCodeText}></Text>
-          </TouchableOpacity>
-          <TextInput
-            placeholder="Enter phone number"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
-            style={styles.input}
-          />
-        </View>
+      <PhoneInput
+          ref={phoneInput}
+          defaultValue={phoneNumber}
+          defaultCode={countryCode}
+          layout="first"
+          onChangeText={(text) => setPhoneNumber(text)}
+          onChangeFormattedText={(text) => setFormattedValue(text)}
+          withDarkTheme
+          withShadow
+        />
       </View>
 
       <TouchableOpacity
-        style={[styles.continueButton, !phoneNumber && styles.disabledButton]}
-        disabled={!phoneNumber}
+        style={[
+          styles.continueButton,
+          (!valid || !phoneNumber) && styles.disabledButton,
+        ]}
+        disabled={!valid || !phoneNumber}
         onPress={handleContinue}
       >
         <Text style={styles.continueText}>Continue</Text>
@@ -75,17 +90,6 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       <Text style={styles.footerText}>
         By continuing, you agree to the terms of use and privacy policy.
       </Text>
-
-    {/* Country Code Picker Modal */}
-    <CountryPicker
-        withFilter
-        withFlag
-        withCountryNameButton
-        countryCode='IN'
-        onSelect={handleCountrySelect}
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
     </View>
   );
 };
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 40,
-    width: '115%',
+    width: '105%',
     marginBottom: 20,
     marginStart:'auto'
   },
@@ -155,8 +159,6 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: '80%',
-    borderColor: '#007BFF',
-    borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
