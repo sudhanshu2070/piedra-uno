@@ -53,7 +53,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
       <View style={styles.countryInputContainer}>
           <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.countryCodeButton}>
-            <Text style={styles.countryCodeText}>+91</Text>
+            <Text style={styles.countryCodeText}></Text>
           </TouchableOpacity>
           <TextInput
             placeholder="Enter phone number"
@@ -131,8 +131,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 40,
-    width: '100%',
+    width: '115%',
     marginBottom: 20,
+    marginStart:'auto'
   },
    countryInputContainer: {
     flexDirection: 'row',
