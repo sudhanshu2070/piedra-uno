@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 40,
-    width: '105%',
+    width: '125%',
     marginBottom: 20,
     marginStart:'auto'
   },
