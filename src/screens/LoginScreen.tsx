@@ -56,7 +56,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
         <View style={styles.phoneInputWrapper}>
           <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.codeContainer}>
             <Text style={styles.codeText}>{countryCode}</Text>
-            <Ionicons name="caret-down" size={18} color="#666" />
+            <Ionicons name="caret-down" size={20} color="#666" style ={styles.iconDownArrow}/>
           </TouchableOpacity>
           
           {/* Phone number input field */}
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   aadhaarText: {
     fontSize: 14,
-    fontWeight: '300',
+    fontWeight: '500',
     color: '#333333',
     textAlign: 'left',
     marginBottom: 10,
@@ -188,14 +188,13 @@ const styles = StyleSheet.create({
   codeContainer: {
     justifyContent: 'center',
     paddingHorizontal: 12,
-    // borderRightWidth: 1,
-    // borderRightColor: '#ccc',
     flexDirection: 'row',
     alignItems: 'center',
   },
   codeText: {
     fontSize: 16,
     color: '#333',
+    fontWeight:'500'
   },
   phoneInput: {
     flex: 1,
@@ -231,7 +230,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginEnd: 85,
     alignItems:'baseline'
-
   },
   modalOverlay: {
     flex: 1,
@@ -270,6 +268,10 @@ const styles = StyleSheet.create({
   phoneInputContainer: {
     flex: 1,
     height:50,
+  },
+  iconDownArrow:{
+    marginStart:10,
+    // paddingEnd:100,
   },
 });
 
