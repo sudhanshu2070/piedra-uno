@@ -1,15 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
 import PhoneInput from 'react-native-phone-number-input';
-import CountryPicker, { CountryCode } from "react-native-country-picker-modal";
-// import CountryPicker, { CountryCode } from 'react-native-country-picker-modal';
-
+import { Picker } from '@react-native-picker/picker';
+// import { CountryCode } from "react-native-country-picker-modal";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
+
+const countries = [
+  { label: 'India (+91)', value: '+91' },
+  { label: 'United States (+1)', value: '+1' },
+  { label: 'United Kingdom (+44)', value: '+44' },
+  { label: 'Canada (+1)', value: '+1' },
+  { label: 'Australia (+61)', value: '+61' },
+];
 
 type Props = {
   navigation: LoginScreenNavigationProp;
@@ -26,9 +33,11 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
   const [valid, setValid] = useState(false);
-  const [countryCode, setCountryCode] = useState<CountryCode>('IN'); // Default to India
+  const [selectedCode, setSelectedCode] = useState('+91'); // Default to India
   const [modalVisible, setModalVisible] = useState(false);
-  const phoneInput = useRef<PhoneInput>(null);
+  const phoneInput = useRef(null);
+  const phoneInputRef = useRef(null);
+
 
   const handleContinue = () => {
     if (valid) {
@@ -37,18 +46,16 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
     else{
       alert("Please enter a valid phone number.");
     }
-
   };
 
-  const handleCountrySelect = (country: { cca2: CountryCode }) => {
-    setCountryCode(country.cca2); // Correctly set the country code
-    setModalVisible(false);
-  };
+  // const handleCountrySelect = (country: { cca2: CountryCode }) => {
+  //   setCountryCode(country.cca2);
+  //   setModalVisible(false);
+  // };
 
   return (
     <View style={styles.container}>
       <View style={styles.curve} />
-      {/* <Text style={styles.logo}>Company</Text> */}
       <Image 
           source={require('../../assets/Bharatgrow_symbol.png')} 
           style={styles.logo}
@@ -65,16 +72,35 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
       <View style={styles.inputContainer}>
       <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
-      <PhoneInput
-          ref={phoneInput}
-          defaultValue={phoneNumber}
-          defaultCode={countryCode}
-          layout="first"
-          onChangeText={(text) => setPhoneNumber(text)}
-          onChangeFormattedText={(text) => setFormattedValue(text)}
-          withDarkTheme
-          withShadow
+      
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={selectedCode}
+          style={styles.picker}
+          onValueChange={(itemValue) => setSelectedCode(itemValue)}
+        >
+          {countries.map((country) => (
+            <Picker.Item
+              key={country.value}
+              label={country.label}
+              value={country.value}
+            />
+          ))}
+        </Picker>
+      </View>
+      {/* Phone Number Input */}
+      <View style={styles.inputContainer}>
+        <Text style={styles.codeText}>{selectedCode}</Text>
+        <TextInput
+          ref={phoneInputRef}
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          placeholder="Enter mobile number"
+          keyboardType="phone-pad"
+          style={styles.textInput}
         />
+      </View>
+
       </View>
 
       <TouchableOpacity
@@ -212,7 +238,53 @@ const styles = StyleSheet.create({
     textAlign:'left',
     bottom:10
   },
+  phoneInputContainer: {
+    width: '100%',
+    borderRadius: 8,
+    backgroundColor: '#fff', // White background
+    borderWidth: 1,
+    borderColor: '#e0e0e0', // Light gray border
+    shadowColor: '#000', // Subtle shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  phoneTextContainer: {
+    backgroundColor: 'transparent', // Keep input transparent
+    borderRadius: 8,
+  },
+  phoneInputText: {
+    fontSize: 16,
+    color: '#333', // Dark gray text
+  },
+  codeTextStyle: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333', // Dark gray code
+  },
+  picker: {
+    height: 50,
+  },
+  codeText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333',
+    marginRight: 10,
+  },
+  textInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    paddingVertical: 10,
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    borderRadius: 8,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+  },
 });
 
 export default LoginScreen;
-//++4
