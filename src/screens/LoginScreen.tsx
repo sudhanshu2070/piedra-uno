@@ -1,22 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Modal, FlatList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
-import PhoneInput from 'react-native-phone-number-input';
-import { Picker } from '@react-native-picker/picker';
-// import { CountryCode } from "react-native-country-picker-modal";
+import { Ionicons } from '@expo/vector-icons'; // For the dropdown arrow icon
+import { countries } from '../utils/Countries';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
-
-const countries = [
-  { label: 'India (+91)', value: '+91' },
-  { label: 'United States (+1)', value: '+1' },
-  { label: 'United Kingdom (+44)', value: '+44' },
-  { label: 'Canada (+1)', value: '+1' },
-  { label: 'Australia (+61)', value: '+61' },
-];
 
 type Props = {
   navigation: LoginScreenNavigationProp;
@@ -26,40 +17,29 @@ type Props = {
 const LoginScreen: React.FC<Props> = ({ route }) => {
   const { role } = route.params; // Accessing the role  
   const navigation = useNavigation<LoginScreenNavigationProp>(); 
-  // const [phoneNumber, setPhoneNumber] = useState('');
-  // const [countryCode, setCountryCode] = useState<CountryCode>("IN"); // Default country code, India (+91)
-  // const [modalVisible, setModalVisible] = useState(false);
-
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [formattedValue, setFormattedValue] = useState("");
-  const [valid, setValid] = useState(false);
-  const [selectedCode, setSelectedCode] = useState('+91'); // Default to India
-  const [modalVisible, setModalVisible] = useState(false);
-  const phoneInput = useRef(null);
   const phoneInputRef = useRef(null);
-
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('+91'); // Default to India
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const handleContinue = () => {
-    if (valid) {
+    if (phoneNumber) {
       navigation.navigate('OTPScreen');
-    }
-    else{
-      alert("Please enter a valid phone number.");
     }
   };
 
-  // const handleCountrySelect = (country: { cca2: CountryCode }) => {
-  //   setCountryCode(country.cca2);
-  //   setModalVisible(false);
-  // };
+  const handleCountrySelect = (code: any) => {
+    setCountryCode(code);
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.curve} />
       <Image 
-          source={require('../../assets/Bharatgrow_symbol.png')} 
-          style={styles.logo}
-          resizeMode="contain" 
+        source={require('../../assets/Bharatgrow_symbol.png')} 
+        style={styles.logo}
+        resizeMode="contain" 
       />
       <Text style={styles.logoText}>Bharat Grow</Text>
       <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text>
@@ -71,50 +51,61 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.inputContainer}>
-      <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
-      
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={selectedCode}
-          style={styles.picker}
-          onValueChange={(itemValue) => setSelectedCode(itemValue)}
-        >
-          {countries.map((country) => (
-            <Picker.Item
-              key={country.value}
-              label={country.label}
-              value={country.value}
-            />
-          ))}
-        </Picker>
-      </View>
-      {/* Phone Number Input */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.codeText}>{selectedCode}</Text>
-        <TextInput
-          ref={phoneInputRef}
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          placeholder="Enter mobile number"
-          keyboardType="phone-pad"
-          style={styles.textInput}
-        />
-      </View>
+        <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
 
+        <View style={styles.phoneInputWrapper}>
+          <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.codeContainer}>
+            <Text style={styles.codeText}>{countryCode}</Text>
+            <Ionicons name="caret-down" size={18} color="#666" />
+          </TouchableOpacity>
+          
+          {/* Phone number input field */}
+          <View style={styles.phoneInputContainer}>
+            <TextInput
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              placeholder="Enter phone number"
+              keyboardType="phone-pad"
+              style={styles.phoneInputWithCountryCode}
+              ref={phoneInputRef}
+            />
+          </View>
+        </View>
+
+        {/* Country Code Modal */}
+        <Modal visible={isModalVisible} transparent>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <FlatList
+                data={countries}
+                keyExtractor={(item) => item.code}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.countryItem}
+                    onPress={() => handleCountrySelect(item.code)}
+                  >
+                    <Text style={styles.countryText}>{`${item.name} (${item.code})`}</Text>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </View>
+        </Modal>
       </View>
 
       <TouchableOpacity
         style={[
           styles.continueButton,
-          (!valid || !phoneNumber) && styles.disabledButton,
+          (!phoneNumber) && styles.disabledButton,
         ]}
-        disabled={!valid || !phoneNumber}
+        disabled={!phoneNumber}
         onPress={handleContinue}
       >
         <Text style={styles.continueText}>Continue</Text>
       </TouchableOpacity>
+
       <Text style={styles.footerText}>
-        By continuing, you agree to the terms of use and privacy policy.
+       By Continuing, you agree to BharatGrow’s Terms of Use and Privacy Policy
       </Text>
     </View>
   );
@@ -143,76 +134,19 @@ const styles = StyleSheet.create({
     width: '15%', 
     height: undefined, 
     aspectRatio: 0.45,
-    // top:1,
-    bottom:90
+    bottom: 90,
   },
   logoText: {
     fontSize: 17,
     color: '#FF9900',
-    // top:35,
-    bottom:120,
-    left:1,
+    bottom: 120,
+    left: 1,
   },
   welcomeText: {
     fontSize: 22,
     color: '#333',
     marginTop: 20,
     textAlign: 'center',
-  },
-  inputContainer: {
-    marginTop: 40,
-    width: '125%',
-    marginBottom: 20,
-    marginStart:'auto'
-  },
-   countryInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#007BFF',
-    marginBottom: 10,
-  },
-  countryCodeButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 8,
-  },
-  countryCodeText: {
-    fontSize: 16,
-    color: '#007BFF',
-  },
-  input: {
-    height: 50,
-    width: '80%',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    backgroundColor: '#F5F5F5',
-  },
-  continueButton: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 15,
-    width: '100%',
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  disabledButton: {
-    backgroundColor: '#D1D1D1',
-  },
-  continueText: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-  },
-  footerText: {
-    fontSize: 12,
-    color: '#7A7A7A',
-    marginTop: 20,
-    textAlign: 'left',
-    // left:0,
-    right:30
   },
   lineContainer: {
     flexDirection: 'row',
@@ -235,55 +169,107 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
     color: '#333333',
-    textAlign:'left',
-    bottom:10
+    textAlign: 'left',
+    marginBottom: 10,
   },
-  phoneInputContainer: {
+  inputContainer: {
+    marginTop: 40,
     width: '100%',
-    borderRadius: 8,
-    backgroundColor: '#fff', // White background
+    marginBottom: 20,
+  },
+  phoneInputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e0e0e0', // Light gray border
-    shadowColor: '#000', // Subtle shadow
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: 10,
+    borderColor: '#ccc',
+    backgroundColor: '#f9f9f9',
   },
-  phoneTextContainer: {
-    backgroundColor: 'transparent', // Keep input transparent
-    borderRadius: 8,
-  },
-  phoneInputText: {
-    fontSize: 16,
-    color: '#333', // Dark gray text
-  },
-  codeTextStyle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333', // Dark gray code
-  },
-  picker: {
-    height: 50,
+  codeContainer: {
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    // borderRightWidth: 1,
+    // borderRightColor: '#ccc',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   codeText: {
     fontSize: 16,
-    fontWeight: '500',
     color: '#333',
-    marginRight: 10,
   },
-  textInput: {
+  phoneInput: {
     flex: 1,
     fontSize: 16,
     color: '#333',
     paddingVertical: 10,
-  },
-  pickerContainer: {
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 8,
-    marginBottom: 20,
+    backgroundColor: '#F5F5F5',
+    paddingHorizontal: 15,
+  },
+  continueButton: {
+    backgroundColor: '#F58320',
+    paddingVertical: 15,
+    width: '100%',
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  disabledButton: {
+    backgroundColor: '#D1D1D1',
+  },
+  continueText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+  footerText: {
+    fontSize: 12,
+    color: '#7A7A7A',
+    marginTop: 20,
+    textAlign: 'left',
+    marginEnd: 85,
+    alignItems:'baseline'
+
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
     backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  countryItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  countryText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  phoneInputWithCountryCode: {
+    height: 40,
+    fontSize: 16,
+    color: '#333',
+    paddingLeft: 10,
+    paddingRight: 10,
+    flex: 1,
+  },
+  phoneInputContainer: {
+    flex: 1,
+    height:50,
   },
 });
 
