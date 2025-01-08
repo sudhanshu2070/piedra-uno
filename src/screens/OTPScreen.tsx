@@ -22,7 +22,7 @@ const OTPScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.message}>
-        an OTP to your mobile number ending with 9876
+      UIDAI has sent an OTP to your mobile ending with 2156
       </Text>
       <View style={styles.otpContainer}>
         {otp.map((_, index) => (
@@ -83,11 +83,12 @@ const styles = StyleSheet.create({
       color: '#007BFF',
       textAlign: 'center',
       marginTop: 10,
+      marginBottom:15,
     },
     verifyButton: {
-      backgroundColor: '#007BFF',
+      backgroundColor: '#F58320',
       paddingVertical: 15,
-      width: '80%',
+      width: '95%',
       borderRadius: 8,
       alignItems: 'center',
     },
