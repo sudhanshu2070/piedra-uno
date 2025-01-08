@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { RootStackParamList } from '../types/types';
+import {  RouteProp } from '@react-navigation/native';
 
-const OTPScreen = () => {
+type OTPScreenRouteProp = RouteProp<RootStackParamList, 'OTPScreen'>;
+
+type Props = {
+  route: OTPScreenRouteProp; 
+};
+
+const OTPScreen: React.FC<Props> = ({ route }) => {
+
+  const { last4Digits } = route.params;
+  
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const handleVerify = () => {
     console.log('Verify OTP:', otp.join(''));
@@ -22,7 +33,7 @@ const OTPScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.message}>
-      UIDAI has sent an OTP to your mobile ending with 2156
+        UIDAI has sent an OTP to your mobile ending with {last4Digits}
       </Text>
       <View style={styles.otpContainer}>
         {otp.map((_, index) => (
@@ -57,16 +68,19 @@ const styles = StyleSheet.create({
       padding: 16,
     },
     message: {
-      fontSize: 16,
-      color: '#333',
-      textAlign: 'center',
+      fontSize: 20,
+      color: '#3D495B',
+      textAlign: 'left',
       marginBottom: 30,
+      marginLeft:15,
+      width:'90%',
     },
     otpContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: '80%',
+      width: '90%',
       marginBottom: 100,
+      marginTop:50,
     },
     otpBox: {
       width: 50,

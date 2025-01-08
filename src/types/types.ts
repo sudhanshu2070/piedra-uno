@@ -2,5 +2,5 @@ export type RootStackParamList = {
     SplashScreen: undefined;
     UserTypeScreen: undefined;
     LoginScreen: { role: string }; 
-    OTPScreen: undefined;
+    OTPScreen: {last4Digits: string};
   };  

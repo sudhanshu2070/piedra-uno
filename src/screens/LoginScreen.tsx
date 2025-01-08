@@ -24,7 +24,10 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
   const handleContinue = () => {
     if (phoneNumber) {
-      navigation.navigate('OTPScreen');
+        // Extracting the last four digits of the phone number
+      const lastFourDigits = phoneNumber.slice(-4);
+
+      navigation.navigate('OTPScreen', { last4Digits : lastFourDigits});
     }
   };
 
@@ -105,7 +108,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       </TouchableOpacity>
 
       <Text style={styles.footerText}>
-       By Continuing, you agree to BharatGrow’s Terms of Use and Privacy Policy
+       By Continuing, you agree to BharatGrow's Terms of Use and Privacy Policy
       </Text>
     </View>
   );
@@ -195,17 +198,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     fontWeight:'500'
-  },
-  phoneInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    borderRadius: 8,
-    backgroundColor: '#F5F5F5',
-    paddingHorizontal: 15,
   },
   continueButton: {
     backgroundColor: '#F58320',
