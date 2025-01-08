@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { RootStackParamList } from '../types/types';
 import {  RouteProp } from '@react-navigation/native';
@@ -12,8 +12,9 @@ type Props = {
 const OTPScreen: React.FC<Props> = ({ route }) => {
 
   const { last4Digits } = route.params;
-  
+  const [seconds, setSeconds] = useState(30);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  
   const handleVerify = () => {
     console.log('Verify OTP:', otp.join(''));
     Alert.alert(
@@ -30,10 +31,27 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
     );
   };
 
+  useEffect(() => {
+    // If seconds reach 0, stop the countdown
+    if (seconds === 0) {
+      setSeconds(30); // Reset to 30 seconds
+      return;
+    }
+
+    // Set up the timer to decrease seconds every second
+    const timer = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+
+    // Clear the interval when the component unmounts or seconds reach 0
+    return () => clearInterval(timer);
+  }, [seconds]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.message}>
-        UIDAI has sent an OTP to your mobile ending with {last4Digits}
+        UIDAI has sent an OTP to your mobile ending with{' '}
+          <Text style={{color:'#28282B', fontWeight:'500'}}>{last4Digits}</Text>   
       </Text>
       <View style={styles.otpContainer}>
         {otp.map((_, index) => (
@@ -51,7 +69,15 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
           />
         ))}
       </View>
-      <Text style={styles.resendText}>Resend OTP in 0:30</Text>
+      <Text style={styles.resendText}>
+        Resend OTP {''}
+        <Text style= {{color:'#172B4D'}}>
+          in {''} 
+        </Text>
+          <Text style= {{color:'#3D89EF'}}>
+            {seconds > 9 ? `0:${seconds}` : `0:0${seconds}`}
+          </Text>
+      </Text>
       <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
         <Text style={styles.verifyText}>Verify</Text>
       </TouchableOpacity>
@@ -94,7 +120,7 @@ const styles = StyleSheet.create({
     },
     resendText: {
       fontSize: 14,
-      color: '#007BFF',
+      color: '#F58320',
       textAlign: 'center',
       marginTop: 10,
       marginBottom:15,
