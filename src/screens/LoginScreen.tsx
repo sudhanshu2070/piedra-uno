@@ -43,9 +43,8 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
     
     if (phoneNumber) {
-      Alert.alert('Success', `Your phone number is ${phoneNumber}`);
       
-        // Extracting the last four digits of the phone number
+      // Extracting the last four digits of the phone number
       const lastFourDigits = phoneNumber.slice(-4);
 
       navigation.navigate('OTPScreen', { last4Digits : lastFourDigits});
