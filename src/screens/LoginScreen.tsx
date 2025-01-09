@@ -23,14 +23,14 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handlePhoneNumberChange = (text: string) => {
-    // Allow only numbers
+    // Allowing only numbers
     const numericValue = text.replace(/[^0-9]/g, '');
     setPhoneNumber(numericValue);
   };
 
   const handleContinue = () => {
 
-    // Validate phone number for non-numeric characters
+    // Validating phone number for non-numeric characters
     if (/[^0-9]/.test(phoneNumber)) {
       Alert.alert('Invalid Input', 'Please enter numbers only.');
       return;
@@ -40,10 +40,8 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       Alert.alert('Empty Field', 'Please enter your phone number.');
       return;
     }
-
     
-    if (phoneNumber) {
-      
+    if (phoneNumber) { 
       // Extracting the last four digits of the phone number
       const lastFourDigits = phoneNumber.slice(-4);
 

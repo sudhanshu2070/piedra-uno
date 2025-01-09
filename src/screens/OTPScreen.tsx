@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { RootStackParamList } from '../types/types';
 import {  RouteProp } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 type OTPScreenRouteProp = RouteProp<RootStackParamList, 'OTPScreen'>;
 
@@ -13,10 +14,43 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
 
   const { last4Digits } = route.params;
   const [seconds, setSeconds] = useState(30);
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = React.useState(Array(6).fill('')); // Array of 6 digits for OTP
+  const inputRefs = Array.from({ length: 6 }, () => useRef<TextInput>(null)); // a refs for each input
   
+  const handleChange = (value: string, index: number) => {
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move to the next input if a digit is entered
+    if (value && index < 5) {
+      inputRefs[index + 1].current?.focus();
+    }
+  };
+
+  const handleBackspace = (value: string, index: number) => {
+    if (!value && index > 0) {
+      inputRefs[index - 1].current?.focus();
+    }
+  };
+
   const handleVerify = () => {
-    console.log('Verify OTP:', otp.join(''));
+    const enteredOtp = otp.join(''); // Combine the OTP array into a single string
+  
+    if (enteredOtp === '890980') {
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Welcome to the new Experience',
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Invalid OTP. Please try again.',
+      });
+    }
+
     Alert.alert(
       "Verified Succesfully",
       "How are you!?",
@@ -61,10 +95,12 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
             maxLength={1}
             keyboardType="number-pad"
             value={otp[index]}
-            onChangeText={(value) => {
-              const newOtp = [...otp];
-              newOtp[index] = value;
-              setOtp(newOtp);
+            onChangeText={(value) => handleChange(value, index)}
+            ref={inputRefs[index]}
+            onKeyPress={({ nativeEvent }) => {
+              if (nativeEvent.key === 'Backspace') {
+                handleBackspace(otp[index], index);
+              }
             }}
           />
         ))}
@@ -81,6 +117,10 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
       <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
         <Text style={styles.verifyText}>Verify</Text>
       </TouchableOpacity>
+
+      {/* Toast to display the message */}
+      <Toast/>
+
     </View>
   );
 };
