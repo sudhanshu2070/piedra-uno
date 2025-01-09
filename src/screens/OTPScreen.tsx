@@ -32,18 +32,18 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
   };
 
   useEffect(() => {
-    // If seconds reach 0, stop the countdown
+    // If seconds reach 0, stopping the countdown
     if (seconds === 0) {
       setSeconds(30); // Reset to 30 seconds
       return;
     }
 
-    // Set up the timer to decrease seconds every second
+    // Setting up the timer to decrease seconds every second
     const timer = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds - 1);
     }, 1000);
 
-    // Clear the interval when the component unmounts or seconds reach 0
+    // Clearing the interval when the component unmounts or seconds reach 0
     return () => clearInterval(timer);
   }, [seconds]);
 
@@ -71,7 +71,7 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
       </View>
       <Text style={styles.resendText}>
         Resend OTP {''}
-        <Text style= {{color:'#172B4D'}}>
+        <Text style= {{color:'#172B4D '}}>
           in {''} 
         </Text>
           <Text style= {{color:'#3D89EF'}}>

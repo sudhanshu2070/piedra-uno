@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Modal, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Modal, FlatList, Alert } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
@@ -22,8 +22,29 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
   const [countryCode, setCountryCode] = useState('+91'); // Default to India
   const [isModalVisible, setModalVisible] = useState(false);
 
+  const handlePhoneNumberChange = (text: string) => {
+    // Allow only numbers
+    const numericValue = text.replace(/[^0-9]/g, '');
+    setPhoneNumber(numericValue);
+  };
+
   const handleContinue = () => {
+
+    // Validate phone number for non-numeric characters
+    if (/[^0-9]/.test(phoneNumber)) {
+      Alert.alert('Invalid Input', 'Please enter numbers only.');
+      return;
+    }
+
+    if (!phoneNumber) {
+      Alert.alert('Empty Field', 'Please enter your phone number.');
+      return;
+    }
+
+    
     if (phoneNumber) {
+      Alert.alert('Success', `Your phone number is ${phoneNumber}`);
+      
         // Extracting the last four digits of the phone number
       const lastFourDigits = phoneNumber.slice(-4);
 
@@ -66,7 +87,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
           <View style={styles.phoneInputContainer}>
             <TextInput
               value={phoneNumber}
-              onChangeText={setPhoneNumber}
+              onChangeText={handlePhoneNumberChange}
               placeholder="Enter phone number"
               keyboardType="phone-pad"
               style={styles.phoneInputWithCountryCode}
