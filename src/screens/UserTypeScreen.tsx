@@ -11,12 +11,12 @@ const UserTypeScreen = () => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null); //Tracking selected role
   const navigation = useNavigation<UserTypeNavigationProp>(); 
 
-  // Handle role selection
+  // Handling role selection
   const handleRoleSelection = (role: string) => {
     setSelectedRole(role);
   };
   
-  // Handle continue button press
+  // Handling continue button press
   const handleContinue = () => {
     if (selectedRole) {
       navigation.navigate('LoginScreen', { role: selectedRole }); // Passing role to the next screen

@@ -35,7 +35,7 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
   };
 
   const handleVerify = () => {
-    const enteredOtp = otp.join(''); // Combine the OTP array into a single string
+    const enteredOtp = otp.join(''); // the OTP array into a single string
   
     if (enteredOtp === '890980') {
       Toast.show({

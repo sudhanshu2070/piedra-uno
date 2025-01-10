@@ -21,7 +21,14 @@ const StackNavigator: React.FC = () => {
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="OTPScreen" component={OTPScreen} />
+        <Stack.Screen
+          name="OTPScreen"
+          component={OTPScreen}
+          options={{
+              headerShown: true, // Show the header for this screen
+              title: '', // Leave the title empty for only the back arrow
+            }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
