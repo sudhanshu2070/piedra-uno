@@ -5,6 +5,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
 import { Ionicons } from '@expo/vector-icons'; // For the dropdown arrow icon
 import { countries } from '../utils/Countries';
+import Svg, { Path } from 'react-native-svg';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
@@ -56,32 +57,40 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.curve} />
-      <Image 
-        source={require('../../assets/Bharatgrow_symbol.png')} 
-        style={styles.logo}
-        resizeMode="contain" 
-      />
-      <Text style={styles.logoText}>Bharat Grow</Text>
-      <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text>
+      {/* Top Wave Section */}
+      <View style={styles.topSection}>
+        <Svg height="100%" width="340%" viewBox="180 50 1440 320" style={styles.wave}>
+          <Path
+            fill="#CCFFCC"
+            d='M0,224L48,234.7C96,245,192,267,288,272C384,277,480,267,576,245.3C672,224,768,192,864,181.3C960,171,1056,181,1152,186.7C1248,192,1344,192,1392,192L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'
+          />
+        </Svg>
+        <Image 
+            source={require('../../assets/Bharatgrow_symbol.png')} 
+            style={styles.logo}
+            resizeMode="contain" 
+        />
+         <Text style={styles.logoText}>Bharat Grow</Text>
+      </View>
+      {/* <Text style={styles.welcomeText}>Welcome {role}, to the Company</Text> */}
 
-      <View style={styles.lineContainer}>
+      {/* <View style={styles.lineContainer}>
         <View style={styles.line} />
         <Text style={styles.loginSignupText}>Login/ Signup</Text>
         <View style={styles.line} />
-      </View>
+      </View> */}
 
-      <View style={styles.inputContainer}>
+      {/* <View style={styles.inputContainer}>
         <Text style={styles.aadhaarText}>Enter Aadhaar-linked mobile number</Text>
 
         <View style={styles.phoneInputWrapper}>
           <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.codeContainer}>
             <Text style={styles.codeText}>{countryCode}</Text>
             <Ionicons name="caret-down" size={20} color="#666" style ={styles.iconDownArrow}/>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           
           {/* Phone number input field */}
-          <View style={styles.phoneInputContainer}>
+          {/* <View style={styles.phoneInputContainer}>
             <TextInput
               value={phoneNumber}
               onChangeText={handlePhoneNumberChange}
@@ -91,10 +100,10 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
               ref={phoneInputRef}
             />
           </View>
-        </View>
+        </View> */}
 
         {/* Country Code Modal */}
-        <Modal visible={isModalVisible} transparent>
+        {/* <Modal visible={isModalVisible} transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <FlatList
@@ -112,9 +121,9 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
             </View>
           </View>
         </Modal>
-      </View>
+      </View> */}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[
           styles.continueButton,
           (!phoneNumber) && styles.disabledButton,
@@ -127,7 +136,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 
       <Text style={styles.footerText}>
        By Continuing, you agree to BharatGrow's Terms of Use and Privacy Policy
-      </Text>
+      </Text> */}
     </View>
   );
 };
@@ -135,10 +144,24 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    // padding: 16,
+  },
+  topSection: {
+    flex: 0.3,
+    height:'240%',
+    // position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    padding: 16,
+  },
+  wave: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   curve: {
     width: '100%',
@@ -155,13 +178,13 @@ const styles = StyleSheet.create({
     width: '15%', 
     height: undefined, 
     aspectRatio: 0.45,
-    bottom: 90,
+    top:65,
   },
   logoText: {
     fontSize: 17,
     color: '#FF9900',
-    bottom: 120,
-    left: 1,
+    top:35,
+    left:1,
   },
   welcomeText: {
     fontSize: 22,
