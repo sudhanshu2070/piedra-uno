@@ -43,26 +43,49 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
         text1: 'Success',
         text2: 'Welcome to the new Experience',
       });
+
+      Alert.alert(
+        "Verified Succesfully",
+        "How are you!?",
+        [
+          {
+            text: "Super Okay",
+            onPress: () => {
+              Toast.show({
+                type: 'info',
+                text1: 'Welcome',
+                text2: 'Khamma Gani, Happy Diwali',
+                visibilityTime: 10000,
+              });
+            },
+          },
+          {
+            text: "OK",
+            onPress: () => {
+              Toast.show({
+                type: 'info',
+                text1: 'Will welcome you soon',
+                text2: "Don't worry, It'll be Super Okay Soon!!",
+                visibilityTime: 10000,
+              });
+            },
+          }
+        ]
+      );
+
     } else {
       Toast.show({
         type: 'error',
         text1: 'Error',
         text2: 'Invalid OTP. Please try again.',
       });
+
+      Alert.alert(
+        "Wrong OTP, try again."
+      );
     }
 
-    Alert.alert(
-      "Verified Succesfully",
-      "How are you!?",
-      [
-        {
-          text: "Cancel",
-        },
-        {
-          text: "OK",
-        }
-      ]
-    );
+    
   };
 
   useEffect(() => {
