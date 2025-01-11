@@ -54,7 +54,7 @@ const OTPScreen: React.FC<Props> = ({ route }) => {
               Toast.show({
                 type: 'info',
                 text1: 'Welcome',
-                text2: 'Khamma Gani, Happy Diwali',
+                text2: 'खम्मा घणी, Happy Diwali',
                 visibilityTime: 10000,
               });
             },
