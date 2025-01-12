@@ -61,7 +61,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
   <View style={styles.topSection}>
     <Svg height="100%" width="340%" viewBox="180 50 1440 320" style={styles.wave}>
       <Path
-        fill="#CCFFCC"
+        fill="#E5FFEF"
         d="M0,224L48,234.7C96,245,192,267,288,272C384,277,480,267,576,245.3C672,224,768,192,864,181.3C960,171,1056,181,1152,186.7C1248,192,1344,192,1392,192L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
       />
     </Svg>
@@ -153,6 +153,9 @@ const styles = StyleSheet.create({
     flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
+    // marginBottom:80,
+    // marginLeft:50,
+    // marginRight:150,
   },
   wave: {
     position: 'absolute',
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 0.7,
-    margin: 20,
+    // margin: 20,
     padding: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
@@ -184,6 +187,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4, // For Android shadow
+    marginTop:500,
+    position: 'absolute',
+    height:'100%'
+    // marginBottom:10,
+    // height:'60%',
+    // width:'100%',
   },
   welcomeText: {
     fontSize: 18,
