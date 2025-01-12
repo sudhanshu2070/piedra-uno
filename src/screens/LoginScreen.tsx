@@ -150,10 +150,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   topSection: {
-    flex: 0.3,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 330, // Adjust based on your layout
     justifyContent: 'center',
     alignItems: 'center',
-    // position:'absolute'
   },
   wave: {
     position: 'absolute',
