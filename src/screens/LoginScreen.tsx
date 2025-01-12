@@ -153,9 +153,7 @@ const styles = StyleSheet.create({
     flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom:80,
-    // marginLeft:50,
-    // marginRight:150,
+    // position:'absolute'
   },
   wave: {
     position: 'absolute',
@@ -178,7 +176,6 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 0.7,
-    // margin: 20,
     padding: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
@@ -189,10 +186,8 @@ const styles = StyleSheet.create({
     elevation: 4, // For Android shadow
     marginTop:500,
     position: 'absolute',
-    height:'100%'
-    // marginBottom:10,
-    // height:'60%',
-    // width:'100%',
+    height:'100%',
+    width:'100%',
   },
   welcomeText: {
     fontSize: 18,
@@ -224,27 +219,31 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   phoneInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    borderWidth: 1,
+    borderColor: '#F0F0F5',
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: '#FCFCFD',
   },
   codeContainer: {
-    padding: 10,
-    backgroundColor: '#F0F0F0',
-    borderRadius: 5,
-    marginRight: 10,
+    flexDirection: 'row', 
+    alignItems: 'center',
+    marginRight: 10, 
   },
   codeText: {
     fontSize: 16,
     color: '#333',
+    marginRight: 5, 
   },
   phoneInputContainer: {
     flex: 1,
   },
   phoneInputWithCountryCode: {
-    borderWidth: 1,
-    borderColor: '#CCC',
-    padding: 10,
-    borderRadius: 5,
+    fontSize: 16,
+    color: '#333',
+    width: '100%',
   },
   continueButton: {
     marginTop: 20,
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   iconDownArrow:{
-    marginStart:10,
+    marginleft:5,
   },
 });
 
