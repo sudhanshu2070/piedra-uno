@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Modal, FlatList, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Modal, FlatList, Alert, ImageStyle } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/types';
@@ -67,7 +67,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
     </Svg>
     <Image 
       source={require('../../assets/Bharatgrow_symbol.png')} 
-      style={styles.logo}
+      style={styles.logo as ImageStyle}
       resizeMode="contain" 
     />
     <Text style={styles.logoText}>Bharat Grow</Text>
@@ -89,7 +89,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       <View style={styles.phoneInputWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.codeContainer}>
           <Text style={styles.codeText}>{countryCode}</Text>
-          <Ionicons name="caret-down" size={20} color="#666" style={styles.iconDownArrow} />
+          <Ionicons name="caret-down" size={20} color="#666"/>
         </TouchableOpacity>
 
         <View style={styles.phoneInputContainer}>
@@ -285,9 +285,6 @@ const styles = StyleSheet.create({
   },
   countryText: {
     fontSize: 16,
-  },
-  iconDownArrow:{
-    marginleft:5,
   },
 });
 
