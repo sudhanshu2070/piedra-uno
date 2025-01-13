@@ -31,9 +31,9 @@ const StackNavigator: React.FC = () => {
             headerShown: true,
             title: '', // No title for the header
             headerLeft: () => (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
                 <BackButton /> {/* Default back button */}
-                <ProgressBar steps={0} currentStep={0} />
+                <ProgressBar steps={4} currentStep={2} />
               </View>
             ),
           }}
