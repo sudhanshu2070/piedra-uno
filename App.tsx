@@ -6,6 +6,8 @@ import UserTypeScreen from './src/screens/UserTypeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import OTPScreen from './src/screens/OTPScreen';
 import { RootStackParamList } from './src/types/types';
+import { View } from 'react-native';
+import ProgressBar from './src/components/ProgressBar';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -25,9 +27,15 @@ const StackNavigator: React.FC = () => {
           name="OTPScreen"
           component={OTPScreen}
           options={{
-              headerShown: true, // Show the header for this screen
-              title: '', // Leave the title empty for only the back arrow
-            }}
+            headerShown: true,
+            title: '', // No title for the header
+            headerLeft: () => (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <BackButton /> {/* Default back button */}
+                <ProgressBar steps={0} currentStep={0} />
+              </View>
+            ),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
