@@ -1,5 +1,6 @@
+import React from 'react';
+import { TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const BackButton = () => {
   const navigation = useNavigation();
@@ -10,3 +11,5 @@ const BackButton = () => {
     </TouchableOpacity>
   );
 };
+
+export default BackButton;
