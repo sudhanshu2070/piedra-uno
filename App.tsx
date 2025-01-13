@@ -8,6 +8,7 @@ import OTPScreen from './src/screens/OTPScreen';
 import { RootStackParamList } from './src/types/types';
 import { View } from 'react-native';
 import ProgressBar from './src/components/ProgressBar';
+import BackButton from './src/components/BackButton';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
