@@ -1,18 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import SplashScreen from './src/screens/SplashScreen';
 import UserTypeScreen from './src/screens/UserTypeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import OTPScreen from './src/screens/OTPScreen';
 import { RootStackParamList } from './src/types/types';
 import { View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import ProgressBar from './src/components/ProgressBar';
-import BackButton from './src/components/BackButton';
-
+import { BackButton } from './src/components/BackButton';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator: React.FC = () => {
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -32,7 +33,8 @@ const StackNavigator: React.FC = () => {
             title: '', // No title for the header
             headerLeft: () => (
               <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
-                <BackButton /> {/* Default back button */}
+                <BackButton/>
+                {/* Progress Bar */}
                 <ProgressBar steps={4} currentStep={2} />
               </View>
             ),
