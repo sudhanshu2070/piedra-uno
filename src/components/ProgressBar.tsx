@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   step: {
-    width: 10,
+    width: 27,
     height: 10,
     borderRadius: 5,
     backgroundColor: '#ccc', // Inactive step color
     marginHorizontal: 5,
   },
   activeStep: {
-    backgroundColor: '#007BFF', // Active step color (blue)
+    backgroundColor: '#F58320', // Active step color (blue)
   },
 });
 
