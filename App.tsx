@@ -31,8 +31,13 @@ const StackNavigator: React.FC = () => {
             headerShown: true,
             title: '', // No title for the header
             headerLeft: () => (
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
+              <View style={{ flexDirection: 'row', alignItems:'center', paddingLeft: 30 }}>
+                {/* Custom back button */}
                 <BackButton/>
+              </View>
+            ),
+            headerRight:() =>(
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 1, marginRight:'12%' }}>                
                 {/* Progress Bar */}
                 <ProgressBar steps={4} currentStep={2} />
               </View>
