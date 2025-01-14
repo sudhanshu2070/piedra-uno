@@ -6,6 +6,7 @@ import { RootStackParamList } from '../types/types';
 import { Ionicons } from '@expo/vector-icons'; // For the dropdown arrow icon
 import { countries } from '../utils/Countries';
 import Svg, { Path } from 'react-native-svg';
+import ProgressBar from '../components/ProgressBar';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'LoginScreen'>;
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
@@ -73,6 +74,11 @@ const LoginScreen: React.FC<Props> = ({ route }) => {
       resizeMode="contain" 
     />
     <Text style={styles.logoText}>Bharat Grow</Text>
+  </View>
+
+  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop:'61%' }}>                
+    {/* Progress Bar */}
+    <ProgressBar steps={4} currentStep={1} />
   </View>
 
   {/* Card Section */}
@@ -265,9 +271,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footerText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'left',
     marginTop: 20,
   },
   modalOverlay: {
